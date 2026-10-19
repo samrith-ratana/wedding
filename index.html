@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EverAfter Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6fa;--panel:#fff;--ink:#172033;--muted:#667189;--line:#e4e8f0;--soft:#f6f7fb;--nav:#172033;--accent:#6d5ce8;--accent2:#ece9ff;--green:#138a62;--red:#c44848;--shadow:0 6px 24px rgba(23,32,51,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--panel:#171e2e;--ink:#e8ecf5;--muted:#98a3ba;--line:#273049;--soft:#1c2438;--nav:#0b0f19;--accent:#8f81ff;--accent2:#2a2650;--green:#3fc79a;--red:#ff7b7b;--shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1420;--panel:#171e2e;--ink:#e8ecf5;--muted:#98a3ba;--line:#273049;--soft:#1c2438;--nav:#0b0f19;--accent:#8f81ff;--accent2:#2a2650;--green:#3fc79a;--red:#ff7b7b;--shadow:none;color-scheme:dark}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:20px}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,"Noto Sans Khmer","Khmer OS",system-ui,-apple-system,"Segoe UI",sans-serif}
+html[lang=km] body{font-family:"Noto Sans Khmer","Khmer OS",Inter,system-ui,sans-serif;line-height:1.75}
+button,input,select{font:inherit;color:inherit}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.sidebar{background:var(--nav);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:17px;padding:0 8px}
+.mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#a69aff,#6755df);display:grid;place-items:center}
+.brand em{font-style:normal;font-weight:400;color:#b7afd9}
+.nav a{display:flex;gap:12px;align-items:center;text-decoration:none;color:#b9c2d2;padding:11px 13px;border-radius:10px;margin:3px 0;transition:.15s}
+.nav a:hover,.nav a.on{background:#2b3550;color:#fff}
+.nav .i{width:18px;text-align:center}
+.note{margin-top:auto;background:#222d46;border:1px solid #34415d;border-radius:14px;padding:14px;color:#c6cede;font-size:12px}
+.note b{display:block;color:#fff;font-size:13px;margin-bottom:4px}
+.main{min-width:0;padding:26px clamp(16px,3vw,40px) 48px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.eyebrow{font-size:12px;color:var(--muted)}
+h1{font-size:25px;margin:2px 0 0;letter-spacing:-.5px}
+html[lang=km] h1{letter-spacing:0}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:6px 11px;border-radius:7px;cursor:pointer;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 13px;cursor:pointer;font-weight:600;transition:.15s}
+.btn:hover{border-color:var(--accent)}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.s{padding:5px 9px;font-size:12px}
+.btn.d{color:var(--red)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#29234d,#5646a5);color:#fff;padding:24px 26px;border-radius:18px;margin-bottom:18px;flex-wrap:wrap}
+.hero .tag{font-size:12px;color:#d4ceff;letter-spacing:.5px}
+.hero h2{font-size:21px;margin:4px 0}
+.hero p{color:#e1def6;margin:0;max-width:560px}
+.big{font-size:32px;font-weight:800;text-align:right;white-space:nowrap}
+.big small{display:block;font-size:12px;font-weight:500;color:#d4ceff}
+.chip{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(255,255,255,.16)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.mt{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;gap:8px}
+.mi{height:32px;width:32px;border-radius:10px;display:grid;place-items:center;background:var(--accent2);color:var(--accent)}
+.mv{font-size:25px;font-weight:750;margin:10px 0 2px;overflow-wrap:anywhere}
+.ms{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;margin-bottom:18px}
+.bgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;margin-bottom:18px}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.ch h3{font-size:15px;margin:0}
+.ch p{font-size:12px;color:var(--muted);margin:2px 0 0}
+.hb{margin:18px 0}
+.hb .l{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;gap:8px}
+.bar{height:12px;background:var(--soft);border-radius:20px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:20px;transition:width .4s}
+.mix{margin:16px 0}
+.foot{display:flex;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+.foot b{display:block;color:var(--ink);font-size:15px}
+.tw{overflow:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);background:var(--soft);padding:10px 12px}
+html[lang=km] th{text-transform:none;letter-spacing:0;font-size:12px}
+td{padding:11px 12px;border-bottom:1px solid var(--line);font-size:13px}
+th:last-child,td:last-child{text-align:right}
+.sh{display:flex;align-items:center;gap:8px}
+.sh .bar{width:70px;height:6px}
+.st{border:0;cursor:pointer;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;background:var(--soft);color:var(--muted)}
+.st.paid{background:rgba(19,138,98,.14);color:var(--green)}
+.tot{display:flex;justify-content:space-between;padding-top:14px;margin-top:6px;border-top:1px solid var(--line);font-weight:700}
+.row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.row span:first-child{color:var(--muted)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f label{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}
+.f input,.f select{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--panel)}
+.f input:focus{border-color:var(--accent)}
+.trow{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:end}
+.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hint{font-size:12px;color:var(--muted);margin-top:10px}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.ok{color:var(--green)}.bad{color:var(--red)}
+.addbox{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--ink);padding:20px;width:min(380px,92vw)}
+dialog::backdrop{background:rgba(10,14,24,.5)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#172033;color:#fff;padding:11px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.toast.show{opacity:1}
+.empty{padding:22px;text-align:center;color:var(--muted)}
+@media(max-width:1100px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.bgrid{grid-template-columns:1fr}}
+@media(max-width:800px){.app{display:block}.sidebar{position:fixed;inset:auto 0 0;height:auto;flex-direction:row;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));gap:0;z-index:40;border-top:1px solid #2b3550}.sidebar .brand,.note{display:none}.sidebar>div{width:100%}.nav{display:flex;justify-content:space-around}.nav a{flex-direction:column;gap:2px;font-size:11px;padding:6px 8px;margin:0}.main{padding:18px 14px 96px}.big{text-align:left;font-size:28px}}
+@media(max-width:520px){.fg{grid-template-columns:1fr 1fr}.mv{font-size:21px}.trow{grid-template-columns:1fr 1fr auto}}
+@media print{.sidebar,.tools,.acts,.addbox,.no-print{display:none!important}.app{display:block}.main{padding:0}.card{box-shadow:none;break-inside:avoid}.hero{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="mark">✦</div><span>EverAfter <em data-i="brand_sub"></em></span></div>
+ <div><nav class="nav" id="nav">
+  <a class="on" href="#overview"><span class="i">▦</span><span data-i="nav_over"></span></a>
+  <a href="#income"><span class="i">↗</span><span data-i="nav_inc"></span></a>
+  <a href="#expenses"><span class="i">▤</span><span data-i="nav_exp"></span></a>
+  <a href="#calculator"><span class="i">⌘</span><span data-i="nav_calc"></span></a>
+ </nav></div>
+ <div class="note"><b data-i="note_t"></b><span data-i="note_b"></span></div>
+</aside>
+<main class="main" id="overview">
+ <header class="top">
+  <div><div class="eyebrow" data-i="crumb"></div><h1 data-i="title"></h1></div>
+  <div class="tools">
+   <div class="seg" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="km">ខ្មែរ</button></div>
+   <div class="seg" role="group" aria-label="Currency"><button data-cur="USD">$</button><button data-cur="KHR">៛</button></div>
+   <button class="btn" id="themeBtn" aria-label="Theme">◐</button>
+   <button class="btn" onclick="window.print()" data-i="print"></button>
+  </div>
+ </header>
+
+ <section class="hero">
+  <div><div class="tag" data-i="tag"></div><h2 data-i="h2"></h2><p data-i="hp"></p><span class="chip" id="saveChip"></span></div>
+  <div class="big"><span id="heroBal"></span><small id="heroLbl"></small></div>
+ </section>
+
+ <section class="metrics">
+  <article class="card"><div class="mt"><span data-i="m_inc"></span><span class="mi">↗</span></div><div class="mv" id="mInc"></div><div class="ms" data-i="m_inc_s"></div></article>
+  <article class="card"><div class="mt"><span data-i="m_exp"></span><span class="mi">▤</span></div><div class="mv" id="mExp"></div><div class="ms" id="mExpS"></div></article>
+  <article class="card"><div class="mt"><span data-i="m_g"></span><span class="mi">♧</span></div><div class="mv" id="mG"></div><div class="ms" id="mGS"></div></article>
+  <article class="card"><div class="mt"><span data-i="m_avg"></span><span class="mi">◎</span></div><div class="mv" id="mAvg"></div><div class="ms" data-i="m_avg_s"></div></article>
+ </section>
+
+ <section class="grid2">
+  <article class="card" id="income">
+   <div class="ch"><div><h3 data-i="c_t"></h3><p data-i="c_s"></p></div></div>
+   <div class="hb"><div class="l"><span data-i="inc"></span><b id="cInc"></b></div><div class="bar"><span id="bInc" style="background:var(--accent)"></span></div></div>
+   <div class="hb"><div class="l"><span data-i="exp"></span><b id="cExp"></b></div><div class="bar"><span id="bExp" style="background:#aab4c7"></span></div></div>
+   <div class="hb"><div class="l"><span data-i="paid_so"></span><b id="cPaid"></b></div><div class="bar"><span id="bPaid" style="background:var(--green)"></span></div></div>
+  </article>
+  <article class="card">
+   <div class="ch"><div><h3 data-i="mix_t"></h3><p data-i="mix_s"></p></div></div>
+   <div id="mixList"></div>
+   <div class="foot"><div><span data-i="wavg"></span><b id="wAvg"></b></div><div style="text-align:right"><span data-i="tot_c"></span><b id="mixTot"></b></div></div>
+  </article>
+ </section>
+
+ <section class="card" id="expenses" style="margin-bottom:18px">
+  <div class="ch"><div><h3 data-i="e_t"></h3><p data-i="e_s"></p></div></div>
+  <div class="tw"><table><thead><tr><th data-i="e_name"></th><th data-i="e_amt"></th><th data-i="e_share"></th><th data-i="e_status"></th><th data-i="e_act"></th></tr></thead><tbody id="eBody"></tbody></table></div>
+  <div class="tot"><span data-i="e_total"></span><span id="eTotal"></span></div>
+  <div class="addbox">
+   <div class="ch" style="margin-bottom:10px"><div><h3 data-i="add_t"></h3></div></div>
+   <div class="fg">
+    <div class="f"><label for="nName" data-i="e_name"></label><input id="nName" type="text"></div>
+    <div class="f"><label for="nAmt" data-i="amt_usd"></label><input id="nAmt" type="number" min="0" step="0.01" inputmode="decimal"></div>
+   </div>
+   <div class="acts"><button class="btn p" id="addBtn" data-i="add"></button></div>
+  </div>
+ </section>
+
+ <section class="bgrid">
+  <article class="card" id="calculator">
+   <div class="ch"><div><h3 data-i="calc_t"></h3><p data-i="calc_s"></p></div></div>
+   <div class="fg">
+    <div class="f"><label for="tables" data-i="f_tables"></label><input id="tables" type="number" min="0" inputmode="numeric"></div>
+    <div class="f"><label for="per" data-i="f_per"></label><input id="per" type="number" min="0" inputmode="numeric"></div>
+    <div class="f"><label for="extra" data-i="f_extra"></label><input id="extra" type="number" min="0" inputmode="decimal"></div>
+    <div class="f"><label for="rate" data-i="rate"></label><input id="rate" type="number" min="1" inputmode="numeric"></div>
+   </div>
+   <h3 style="font-size:14px;margin:18px 0 8px" data-i="tiers"></h3>
+   <div id="tierList"></div>
+   <div class="acts"><button class="btn s" id="addTier" data-i="add_tier"></button><button class="btn s" id="resetBtn" data-i="reset"></button></div>
+   <div class="hint" id="pctMsg"></div>
+  </article>
+  <article class="card">
+   <div class="ch"><div><h3 data-i="sum_t"></h3><p data-i="sum_s"></p></div></div>
+   <div class="row"><span data-i="s_inc"></span><b id="sInc"></b></div>
+   <div class="row"><span data-i="s_exp"></span><b id="sExp"></b></div>
+   <div class="row"><span data-i="s_extra"></span><b id="sExtra"></b></div>
+   <div class="row"><span data-i="cover"></span><b id="sCov"></b></div>
+   <div class="tot"><span id="sLbl"></span><span id="sBal"></span></div>
+   <p class="hint" data-i="disc"></p>
+  </article>
+ </section>
+ <p class="hint" style="text-align:center;margin-top:22px" data-i="foot"></p>
+</main>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgT">
+ <h3 id="dlgT" style="margin:0 0 14px" data-i="edit_t"></h3>
+ <div class="f" style="margin-bottom:10px"><label for="eN" data-i="e_name"></label><input id="eN" type="text"></div>
+ <div class="f"><label for="eA" data-i="amt_usd"></label><input id="eA" type="number" min="0" step="0.01" inputmode="decimal"></div>
+ <div class="acts" style="justify-content:flex-end"><button class="btn" id="dCancel" data-i="cancel"></button><button class="btn p" id="dSave" data-i="save"></button></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const I={
+en:{brand_sub:'Finance',nav_over:'Overview',nav_inc:'Income',nav_exp:'Expenses',nav_calc:'Calculator',note_t:'Wedding budget planner',note_b:'Track expected contributions, manage costs, and see your estimated balance in one place.',crumb:'WEDDING PLANNING / FINANCE',title:'Financial overview',print:'Print report',tag:'Your wedding budget at a glance',h2:'Plan with confidence.',hp:'Estimate guest contributions, compare them with preparation costs, and keep your balance on track.',bal:'Estimated balance',short:'Estimated shortfall',m_inc:'Expected income',m_inc_s:'From guest contributions',m_exp:'Total expenses',m_exp_s_x:'Includes additional expenses',m_g:'Expected guests',tbl:'tables',pt:'per table',m_avg:'Average per guest',m_avg_s:'Weighted contribution',c_t:'Income vs. expenses',c_s:'Current estimate',inc:'Expected income',exp:'Total expenses',paid_so:'Paid so far',mix_t:'Contribution mix',mix_s:'Guests by contribution level',guests:'guests',wavg:'Weighted average',tot_c:'Total contributions',perg:'/ guest',e_t:'Preparation expenses',e_s:'Tap a status to mark an item as paid',e_name:'Expense name',e_amt:'Budget',e_share:'Share',e_status:'Status',e_act:'Actions',budgeted:'Budgeted',paid:'Paid',edit:'Edit',del:'Delete',e_total:'Total listed expenses',add_t:'Add a new expense',amt_usd:'Amount (USD)',add:'+ Add expense',save:'Save',cancel:'Cancel',edit_t:'Edit expense',calc_t:'Budget calculator',calc_s:'Changes update the dashboard instantly',f_tables:'Number of tables',f_per:'Guests per table',f_extra:'Additional expenses ($)',rate:'Exchange rate (៛ per $1)',tiers:'Contribution levels',tier_amt:'Amount ($)',tier_pct:'Share of guests (%)',add_tier:'+ Add level',reset:'Reset values',pct_ok:'Percentages total 100%.',pct_bad:'Percentages total {n}%. Adjust to reach 100% to calculate income.',sum_t:'Financial summary',sum_s:'Estimated position after expenses',s_inc:'Expected income',s_exp:'Listed expenses',s_extra:'Additional expenses',cover:'Budget coverage',disc:'This is a planning estimate, not guaranteed income. Actual contributions may vary.',foot:'EverAfter Finance · Wedding planning dashboard',confirm_del:'Delete this expense?',t_add:'Expense added',t_del:'Expense deleted',t_upd:'Expense updated',t_rst:'Values reset',t_inv:'Enter a name and an amount of 0 or more',empty:'No expenses yet. Add your first one below.',saved:'✓ Saved on this device',alc:'Alcohol',chef:'Chef',food:'Food',kmusic:'Khmer music',makeup:'Makeup + photographer',venue:'Venue + tables',band:'Aok Kadal band'},
+km:{brand_sub:'ហិរញ្ញវត្ថុ',nav_over:'ទិដ្ឋភាពទូទៅ',nav_inc:'ចំណូល',nav_exp:'ចំណាយ',nav_calc:'ម៉ាស៊ីនគណនា',note_t:'កម្មវិធីរៀបចំថវិកាមង្គលការ',note_b:'តាមដានចំណងដៃដែលរំពឹងទុក គ្រប់គ្រងចំណាយ និងមើលសមតុល្យប៉ាន់ស្មាននៅកន្លែងតែមួយ។',crumb:'ការរៀបចំមង្គលការ / ហិរញ្ញវត្ថុ',title:'ទិដ្ឋភាពទូទៅហិរញ្ញវត្ថុ',print:'បោះពុម្ពរបាយការណ៍',tag:'ថវិកាមង្គលការរបស់អ្នកក្នុងមួយភ្លែត',h2:'រៀបចំផែនការដោយទំនុកចិត្ត។',hp:'ប៉ាន់ស្មានចំណងដៃពីភ្ញៀវ ប្រៀបធៀបជាមួយចំណាយរៀបចំ និងរក្សាសមតុល្យឱ្យនៅលើផ្លូវត្រូវ។',bal:'សមតុល្យប៉ាន់ស្មាន',short:'ឱនភាពប៉ាន់ស្មាន',m_inc:'ចំណូលរំពឹងទុក',m_inc_s:'ពីចំណងដៃភ្ញៀវ',m_exp:'ចំណាយសរុប',m_exp_s_x:'រួមទាំងចំណាយបន្ថែម',m_g:'ភ្ញៀវរំពឹងទុក',tbl:'តុ',pt:'ក្នុងមួយតុ',m_avg:'មធ្យមភាគក្នុងមួយភ្ញៀវ',m_avg_s:'ចំណងដៃមធ្យមភាគថ្លឹង',c_t:'ចំណូល និងចំណាយ',c_s:'ការប៉ាន់ស្មានបច្ចុប្បន្ន',inc:'ចំណូលរំពឹងទុក',exp:'ចំណាយសរុប',paid_so:'បានបង់រួច',mix_t:'សមាសភាគចំណងដៃ',mix_s:'ភ្ញៀវតាមកម្រិតចំណងដៃ',guests:'នាក់',wavg:'មធ្យមភាគថ្លឹង',tot_c:'ចំណងដៃសរុប',perg:'/ ភ្ញៀវ',e_t:'ចំណាយរៀបចំ',e_s:'ចុចលើស្ថានភាពដើម្បីកំណត់ថាបានបង់',e_name:'ឈ្មោះចំណាយ',e_amt:'ថវិកា',e_share:'ភាគរយ',e_status:'ស្ថានភាព',e_act:'សកម្មភាព',budgeted:'បានគ្រោង',paid:'បានបង់',edit:'កែប្រែ',del:'លុប',e_total:'ចំណាយសរុបក្នុងបញ្ជី',add_t:'បន្ថែមចំណាយថ្មី',amt_usd:'ចំនួនទឹកប្រាក់ (ដុល្លារ)',add:'+ បន្ថែមចំណាយ',save:'រក្សាទុក',cancel:'បោះបង់',edit_t:'កែប្រែចំណាយ',calc_t:'ម៉ាស៊ីនគណនាថវិកា',calc_s:'ការផ្លាស់ប្តូរនឹងធ្វើបច្ចុប្បន្នភាពភ្លាមៗ',f_tables:'ចំនួនតុ',f_per:'ភ្ញៀវក្នុងមួយតុ',f_extra:'ចំណាយបន្ថែម ($)',rate:'អត្រាប្តូរប្រាក់ (៛ ក្នុង $1)',tiers:'កម្រិតចំណងដៃ',tier_amt:'ចំនួន ($)',tier_pct:'ភាគរយភ្ញៀវ (%)',add_tier:'+ បន្ថែមកម្រិត',reset:'កំណត់ឡើងវិញ',pct_ok:'ភាគរយសរុប 100%។',pct_bad:'ភាគរយសរុប {n}%។ សូមកែឱ្យបាន 100% ដើម្បីគណនាចំណូល។',sum_t:'សង្ខេបហិរញ្ញវត្ថុ',sum_s:'ស្ថានភាពប៉ាន់ស្មានបន្ទាប់ពីចំណាយ',s_inc:'ចំណូលរំពឹងទុក',s_exp:'ចំណាយក្នុងបញ្ជី',s_extra:'ចំណាយបន្ថែម',cover:'អត្រាគ្របដណ្តប់ថវិកា',disc:'នេះគ្រាន់តែជាការប៉ាន់ស្មានសម្រាប់ការគ្រោងទុក មិនមែនជាចំណូលពិតប្រាកដទេ។ ចំណងដៃជាក់ស្តែងអាចខុសគ្នា។',foot:'EverAfter Finance · ផ្ទាំងគ្រប់គ្រងមង្គលការ',confirm_del:'លុបចំណាយនេះឬ?',t_add:'បានបន្ថែមចំណាយ',t_del:'បានលុបចំណាយ',t_upd:'បានកែប្រែចំណាយ',t_rst:'បានកំណត់ឡើងវិញ',t_inv:'សូមបញ្ចូលឈ្មោះ និងចំនួនពី 0 ឡើងទៅ',empty:'មិនទាន់មានចំណាយទេ។ សូមបន្ថែមខាងក្រោម។',saved:'✓ បានរក្សាទុកក្នុងឧបករណ៍នេះ',alc:'គ្រឿងស្រវឹង',chef:'ចុងភៅ',food:'អាហារ',kmusic:'ភ្លេងខ្មែរ',makeup:'តុបតែងមុខ + ថតរូប',venue:'ទីកន្លែង + តុ',band:'វង់ភ្លេងអកកាដង់'}
+};
+const DEF=()=>({lang:'en',cur:'USD',theme:'auto',tables:100,per:10,extra:0,rate:4100,
+ tiers:[{a:20,p:50},{a:15,p:30},{a:25,p:20}],
+ ex:[['alc',1500],['chef',1500],['food',7000],['kmusic',300],['makeup',2930],['venue',2000],['band',1000]].map((x,i)=>({id:i+1,k:x[0],a:x[1],paid:false}))});
+let S=DEF(),nid=100,editId=null;
+try{const r=localStorage.getItem('everafter-v2');if(r)S=Object.assign(DEF(),JSON.parse(r))}catch(e){}
+const $=id=>document.getElementById(id);
+const t=k=>(I[S.lang]&&I[S.lang][k])||I.en[k]||k;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const N=n=>new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
+const M=v=>S.cur==='KHR'?'៛'+N(v*S.rate):new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(v);
+const nm=e=>e.k?t(e.k):e.n;
+function save(){try{localStorage.setItem('everafter-v2',JSON.stringify(S));$('saveChip').textContent=t('saved')}catch(e){$('saveChip').textContent=''}}
+function toast(m){const x=$('toast');x.textContent=m;x.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>x.classList.remove('show'),2200)}
+function applyStatic(){
+ document.documentElement.lang=S.lang;
+ if(S.theme==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=S.theme;
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
+ document.querySelectorAll('[data-cur]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.cur===S.cur));
+ $('rate').closest('.f').style.display=S.cur==='KHR'?'':'none';
+}
+function renderTiers(){
+ $('tierList').innerHTML=S.tiers.map((x,i)=>`<div class="trow"><div class="f"><label>${t('tier_amt')}</label><input type="number" min="0" inputmode="decimal" value="${x.a}" data-ta="${i}"></div><div class="f"><label>${t('tier_pct')}</label><input type="number" min="0" max="100" inputmode="decimal" value="${x.p}" data-tp="${i}"></div><button class="btn s d" data-td="${i}" aria-label="${t('del')}" ${S.tiers.length<2?'disabled':''}>✕</button></div>`).join('');
+}
+const COL=['#7564e8','#39a98a','#e4a34b','#e0679a','#4c9be8','#9aa4b8'];
+function render(){
+ const g=S.tables*S.per,pct=S.tiers.reduce((s,x)=>s+x.p,0),valid=Math.abs(pct-100)<.001;
+ const avg=valid?S.tiers.reduce((s,x)=>s+x.a*x.p/100,0):0,inc=g*avg;
+ const listed=S.ex.reduce((s,x)=>s+x.a,0),exp=listed+S.extra,paid=S.ex.filter(x=>x.paid).reduce((s,x)=>s+x.a,0),bal=inc-exp;
+ const D='—',vi=v=>valid?v:D;
+ $('heroBal').textContent=vi(M(bal));$('heroLbl').textContent=valid&&bal<0?t('short'):t('bal');
+ $('mInc').textContent=vi(M(inc));$('mExp').textContent=M(exp);$('mExpS').textContent=t('m_exp_s_x');
+ $('mG').textContent=N(g);$('mGS').textContent=`${N(S.tables)} ${t('tbl')} · ${N(S.per)} ${t('pt')}`;
+ $('mAvg').textContent=vi(M(avg));
+ const mx=Math.max(inc,exp,1);
+ $('cInc').textContent=vi(M(inc));$('cExp').textContent=M(exp);$('cPaid').textContent=M(paid);
+ $('bInc').style.width=(valid?inc/mx*100:0)+'%';$('bExp').style.width=exp/mx*100+'%';$('bPaid').style.width=paid/mx*100+'%';
+ $('mixList').innerHTML=S.tiers.map((x,i)=>`<div class="mix"><div class="hb" style="margin:0"><div class="l"><span>${M(x.a)} · ${x.p}%</span><b>${vi(N(g*x.p/100)+' '+t('guests'))}</b></div><div class="bar"><span style="width:${Math.min(100,x.p)}%;background:${COL[i%6]}"></span></div></div></div>`).join('');
+ $('wAvg').textContent=vi(M(avg)+' '+t('perg'));$('mixTot').textContent=vi(M(inc));
+ $('eBody').innerHTML=S.ex.length?S.ex.map(e=>`<tr><td>${esc(nm(e))}</td><td>${M(e.a)}</td><td><div class="sh"><div class="bar"><span style="width:${listed?e.a/listed*100:0}%;background:var(--accent)"></span></div>${listed?(e.a/listed*100).toFixed(1):'0.0'}%</div></td><td><button class="st ${e.paid?'paid':''}" data-pay="${e.id}">${e.paid?'✓ '+t('paid'):t('budgeted')}</button></td><td><button class="btn s" data-edit="${e.id}">${t('edit')}</button> <button class="btn s d" data-del="${e.id}">${t('del')}</button></td></tr>`).join(''):`<tr><td colspan="5" class="empty">${t('empty')}</td></tr>`;
+ $('eTotal').textContent=M(listed);
+ $('sInc').textContent=vi(M(inc));$('sExp').textContent=M(listed);$('sExtra').textContent=M(S.extra);
+ $('sCov').textContent=valid&&exp?(inc/exp*100).toFixed(1)+'%':D;
+ $('sLbl').textContent=valid&&bal<0?t('short'):t('bal');$('sBal').textContent=vi(M(bal));$('sBal').className=valid&&bal<0?'neg':'pos';
+ const pm=$('pctMsg');pm.className='hint '+(valid?'ok':'bad');pm.textContent=valid?t('pct_ok'):t('pct_bad').replace('{n}',+pct.toFixed(2));
+ save();
+}
+function full(){applyStatic();renderTiers();$('tables').value=S.tables;$('per').value=S.per;$('extra').value=S.extra;$('rate').value=S.rate;render()}
+const nv=(id,min=0)=>Math.max(min,Number($(id).value)||0);
+['tables','per','extra','rate'].forEach(id=>$(id).addEventListener('input',()=>{S[id]=nv(id,id==='rate'?1:0);render()}));
+$('tierList').addEventListener('input',e=>{const d=e.target.dataset,v=Math.max(0,Number(e.target.value)||0);if(d.ta!==undefined)S.tiers[d.ta].a=v;if(d.tp!==undefined)S.tiers[d.tp].p=v;render()});
+$('tierList').addEventListener('click',e=>{const b=e.target.closest('[data-td]');if(b&&S.tiers.length>1){S.tiers.splice(+b.dataset.td,1);renderTiers();render()}});
+$('addTier').onclick=()=>{S.tiers.push({a:10,p:0});renderTiers();render()};
+$('resetBtn').onclick=()=>{const d=DEF();Object.assign(S,{tables:d.tables,per:d.per,extra:d.extra,tiers:d.tiers,rate:d.rate});full();toast(t('t_rst'))};
+$('addBtn').onclick=()=>{const n=$('nName').value.trim(),r=$('nAmt').value,a=Number(r);
+ if(!n||r===''||!isFinite(a)||a<0){toast(t('t_inv'));return}
+ S.ex.push({id:++nid+Date.now()%1e6,n,a,paid:false});$('nName').value='';$('nAmt').value='';render();toast(t('t_add'))};
+$('eBody').addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.pay){const x=S.ex.find(x=>x.id==d.pay);x.paid=!x.paid;render()}
+ else if(d.del){if(confirm(t('confirm_del'))){S.ex=S.ex.filter(x=>x.id!=d.del);render();toast(t('t_del'))}}
+ else if(d.edit){const x=S.ex.find(x=>x.id==d.edit);editId=x.id;$('eN').value=nm(x);$('eA').value=x.a;$('dlg').showModal();$('eN').focus()}
+});
+$('dCancel').onclick=()=>$('dlg').close();
+$('dSave').onclick=()=>{const n=$('eN').value.trim(),a=Number($('eA').value);if(!n||$('eA').value===''||!isFinite(a)||a<0){toast(t('t_inv'));return}
+ const x=S.ex.find(x=>x.id===editId);if(nm(x)!==n){delete x.k;x.n=n}x.a=a;$('dlg').close();render();toast(t('t_upd'))};
+document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.lang;full()});
+document.querySelectorAll('[data-cur]').forEach(b=>b.onclick=()=>{S.cur=b.dataset.cur;full()});
+$('themeBtn').onclick=()=>{const dark=document.documentElement.dataset.theme==='dark'||(S.theme==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);S.theme=dark?'light':'dark';full()};
+document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{document.querySelectorAll('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on')});
+full();
+</script>
+</body>
+</html>
